@@ -28,7 +28,7 @@
     <div class="panel-header">
       <div class="status">
         <span class="status-dot" [class.win]="status()==='won'" [class.draw]="status()==='draw'"></span>
-        <span class="status-text">{{ turnText() }}</span>
+        <span class="status-text" [attr.aria-live]="'polite'">{{ turnText() }}</span>
       </div>
       <div class="controls">
         <button class="btn primary" (click)="startGame()">
@@ -45,8 +45,16 @@
           [disabled]="!canInteract() || c !== null"
           [class.winning]="isWinningCell(i)"
           (click)="handleCellClick(i)"
-          [attr.aria-label]="'Cell ' + (i+1) + (c ? ' occupied by ' + c : ' empty')">
-          <span class="cell-content" [class.x]="c==='X'" [class.o]="c==='O'">{{ c }}</span>
+          [attr.aria-label]="'Cell ' + (i+1) + (c ? (' occupied by ' + (c === 'X' ? 'Knight' : 'Queen')) : ' empty')"
+          [attr.aria-pressed]="c !== null ? 'true' : 'false'">
+          <span
+            class="cell-content"
+            [class.knight]="c==='X'"
+            [class.queen]="c==='O'"
+            [attr.role]="'img'"
+            [attr.aria-label]="c === 'X' ? 'Knight' : (c === 'O' ? 'Queen' : null)">
+            {{ c === 'X' ? '♞' : (c === 'O' ? '♛' : '') }}
+          </span>
         </button>
       </div>
     </div>

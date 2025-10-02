@@ -38,8 +38,10 @@ export class AppComponent {
   // Derived state
   // PUBLIC_INTERFACE
   turnText = computed(() => {
+    const nameMap: Record<Player, string> = { X: 'Knight', O: 'Queen' };
     if (this.status() === 'won') {
-      return `Winner: ${this.winner()}`;
+      const w = this.winner();
+      return `Winner: ${w ? nameMap[w] : ''}`;
     }
     if (this.status() === 'draw') {
       return `It's a draw`;
@@ -47,7 +49,7 @@ export class AppComponent {
     if (this.status() === 'idle') {
       return `Press Start to play`;
     }
-    return `Turn: ${this.currentPlayer()}`;
+    return `Turn: ${nameMap[this.currentPlayer()]}`;
   });
 
   // Ensure AI moves after player's turn in AI mode

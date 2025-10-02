@@ -234,25 +234,26 @@ html, body {
   background: linear-gradient(175deg, rgba(37,99,235,0.08), #ffffff);
 }
 
+/* Icon base styling */
 .cell-content {
   font-size: clamp(2.2rem, 8.2vw, 4.5rem);
   font-weight: 800;
-  letter-spacing: 2px;
-  color: var(--text);
+  letter-spacing: 0; /* icons don't need extra spacing */
   transform: translateZ(0);
-  transition: transform 140ms ease, color 140ms ease, text-shadow 140ms ease;
+  transition: transform 140ms ease, color 140ms ease, text-shadow 140ms ease, filter 140ms ease;
   text-shadow: 0 1px 0 rgba(17,24,39,0.05);
 }
 
-.cell-content.x {
-  color: #0f172a; /* slightly darker for X */
+/* Knight (X) uses primary color */
+.cell-content.knight {
+  color: var(--primary);
+  filter: drop-shadow(0 8px 18px rgba(37,99,235,0.16));
 }
 
-.cell-content.o {
-  color: var(--primary);
-  text-shadow:
-    0 8px 18px rgba(37,99,235,0.16),
-    0 1px 0 rgba(17,24,39,0.05);
+/* Queen (O) uses secondary color */
+.cell-content.queen {
+  color: var(--secondary);
+  filter: drop-shadow(0 8px 18px rgba(245,158,11,0.18));
 }
 
 @media (max-width: 640px) {
