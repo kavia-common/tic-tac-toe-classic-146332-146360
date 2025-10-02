@@ -1,3 +1,58 @@
-<div class="container">
-  <h1>{{ title }}</h1>
-</div>
+<header class="app-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="logo">TTT</div>
+      <h1 class="title">{{ title }}</h1>
+    </div>
+    <div class="mode-toggle" role="group" aria-label="Game mode">
+      <button
+        class="btn mode"
+        [class.active]="gameMode() === 'pvp'"
+        (click)="setMode('pvp')"
+        title="Two Players">
+        2 Players
+      </button>
+      <button
+        class="btn mode"
+        [class.active]="gameMode() === 'ai'"
+        (click)="setMode('ai')"
+        title="Play vs AI">
+        Vs AI
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+  <section class="panel">
+    <div class="panel-header">
+      <div class="status">
+        <span class="status-dot" [class.win]="status()==='won'" [class.draw]="status()==='draw'"></span>
+        <span class="status-text">{{ turnText() }}</span>
+      </div>
+      <div class="controls">
+        <button class="btn primary" (click)="startGame()">
+          {{ status() === 'idle' ? 'Start Game' : 'Restart' }}
+        </button>
+      </div>
+    </div>
+
+    <div class="board-wrapper">
+      <div class="board">
+        <button
+          class="cell"
+          *ngFor="let c of board(); index as i"
+          [disabled]="!canInteract() || c !== null"
+          [class.winning]="isWinningCell(i)"
+          (click)="handleCellClick(i)"
+          [attr.aria-label]="'Cell ' + (i+1) + (c ? ' occupied by ' + c : ' empty')">
+          <span class="cell-content" [class.x]="c==='X'" [class.o]="c==='O'">{{ c }}</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="panel-footer">
+      <small class="hint">Ocean Professional theme • Clean, modern UI with smooth interactions</small>
+    </div>
+  </section>
+</main>
